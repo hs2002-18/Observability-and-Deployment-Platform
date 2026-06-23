@@ -1,3 +1,5 @@
+from utils.metrics import incident_count
+
 incidents=[]
 
 def get_incident():
@@ -5,6 +7,9 @@ def get_incident():
 
 def create_incident(incident):
     incidents.append(incident)
+    incident_count.set(
+        len(incidents)
+    )
     return incident
 
 def get_incident_by_id(incident_id):

@@ -1,3 +1,5 @@
+from utils.metrics import deployment_count
+
 deployments = []
 
 def get_deployments():
@@ -5,6 +7,9 @@ def get_deployments():
 
 def create_deployment(deployment):
     deployments.append(deployment)
+    deployment_count.set(
+        len(deployments)
+    )
     return deployment
 
 def get_deployment_by_id(deployment_id):
