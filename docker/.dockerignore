@@ -1,0 +1,13 @@
+.git
+.gitignore
+
+app/venv
+app/__pycache__
+
+*.pyc
+*.pyo
+*.pyd
+
+.env
+
+terraform/.terraform
