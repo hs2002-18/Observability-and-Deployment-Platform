@@ -1,0 +1,31 @@
+services:
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: cloud-observability-platform
+    ports:
+      - "8000:8000"
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - app
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+    - GF_SERVER_ROOT_URL=https://3000-cs-537125049680-default.cs-asia-southeast1-fork.cloudshell.dev
+    - GF_SERVER_SERVE_FROM_SUB_PATH=false
+    - GF_SECURITY_ALLOW_EMBEDDING=true
+    depends_on:
+      - prometheus
