@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cloud-observability-platform-deployment
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: cloud-observability-platform
+
+  template:
+    metadata:
+      labels:
+        app: cloud-observability-platform
+
+    spec:
+      containers:
+        - name: cloud-observability-platform
+
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 8000
+
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cloud-observability-platform-configmap
+                  key: APP_NAME
+
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: cloud-observability-platform-configmap
+                  key: ENVIRONMENT
