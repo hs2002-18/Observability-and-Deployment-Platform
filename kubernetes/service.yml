@@ -1,7 +1,8 @@
 kind: Service
 apiVersion: v1
 metadata: 
-  name: cloud-observability-platform-service
+  name: cop-service
+  namespace: cop
 spec:
   selector:
     app: cloud-observability-platform

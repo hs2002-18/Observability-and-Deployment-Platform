@@ -1,10 +1,11 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: cloud-observability-platform-deployment
+  name: cop-deployment
+  namespace: cop
 spec:
   replicas: 2
-  selector: 
+  selector:
     matchLabels:
       app: cloud-observability-platform
   template:
@@ -12,21 +13,27 @@ spec:
       labels:
         app: cloud-observability-platform
     spec:
-      containers:
+      containers: 
         - name: cloud-observability-platform
           image: cloud-observability-platform:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           env:
             - name: APP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: cloud-observability-platform-configmap
+                  name: cop-configmap 
                   key: APP_NAME
             - name: ENVIRONMENT
               valueFrom:
                 configMapKeyRef:
-                  name: cloud-observability-platform-configmap
+                  name: cop-configmap
                   key: ENVIRONMENT
-

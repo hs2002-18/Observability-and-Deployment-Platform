@@ -1,7 +1,8 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: cloud-observability-platform-configmap
+  name: cop-configmap
+  namespace: cop
 data:
   APP_NAME: "Cloud Observability Platform"
   ENVIRONMENT: "dev"
