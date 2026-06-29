@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim 
+apiVersion: v1
+metadata:
+  name: cop-pvc
+  namespace: cop
+spec:
+  accessModes: 
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 2Gi
