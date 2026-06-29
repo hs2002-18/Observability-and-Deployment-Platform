@@ -2,13 +2,12 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: cop-pv
-  namespace: cop
 spec:
-  capacity: 
-    storage: 2Gi
+  capacity:
+    storage: {{ .Values.persistence.size }}
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual
+  storageClassName: {{ .Values.persistence.storageClass }}
   hostPath:
     path: /mnt/data
