@@ -1,0 +1,21 @@
+groups:
+  - name: cloud-observability-platform
+    rules:
+
+      - alert: ApplicationDown
+        expr: up{job="cloud-observability-platform"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Application is down"
+          description: "FastAPI application is not responding."
+
+      - alert: HighRequestRate
+        expr: rate(http_requests_total[1m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request rate"
+          description: "Application is receiving high traffic."
