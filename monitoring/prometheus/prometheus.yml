@@ -5,6 +5,10 @@ scrape_configs:
     static_configs:
       - targets:
           - app:8000
+  - job_name: "nod-exporter"
+    static_configs:
+      - targets:
+        - node-exporter:9100
 
 alerting:
   alertmanagers:
